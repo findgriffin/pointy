@@ -1,8 +1,9 @@
 """ The pointy app, using formcreator."""
-from formcreator import Form, MainApp, Text, Integer
+from formcreator import Form, MainApp, Text, Integer, Doc, TextArea
 import datetime
 
-def enter_food(breakfast, lunch, dinner, snacks, date):
+def enter_food(date, breakfast, breakfast_pts, lunch, lunch_pts, dinner,
+        dinner_pts, snacks, snack_pts, hi):
     with open('enter.out', 'wb') as fp:
         fp.write('%s %s %s' % (breakfast, lunch, dinner))
 
@@ -15,17 +16,18 @@ now = datetime.datetime.now()
 today = '%s/%s/%s' % (now.day, now.month, now.year)
 
 food += Text('Date', default=today)
+food += Doc("""
+Enter food1 [points], food2 [points],... in the fields below. Points may be
+ommitted if the food has been seen before.
+""")
 food += Text('Breakfast')
-food += Integer('breakfast_points')
 food += Text('Lunch')
-food += Integer('lunch_points')
 food += Text('Dinner')
-food += Integer('dinner_points')
 food += Text('Snacks')
-food += Integer('snack_points')
 
 train = Form(enter_training, name="Train")
-train += Text('Workout')
+train += Text('Date', default=today)
+train += TextArea('Workout')
 pointy_app = MainApp('Pointy', [food, train])
 pointy_app.run()
 
