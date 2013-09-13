@@ -36,19 +36,28 @@ def process_item(item, items):
         return item, items[item], message
     else:
         raise ValueError('could not determine points for %s' % item)
+
+def daily_points(date, db):
+    total = 0
+    if date in db['days']:
+        for val in db['days'][date]:
+            total += val[1]
+    return total
+
         
-def process_meal(text, db, date):
-    messages = []
+def process_meal(text, db, date, name):
+    messages = ['%s: ' % name]
     for part in text.split(','):
         try:
             name, points, msg = process_item(part, db['foods']) 
         except ValueError as err:
-            msg = err.message
+            messages[-1] += err.message
+
         else:
             if not date in db['days']:
                 db['days'][date] = []
             db['days'][date].append((name, points))
-        messages.append(msg)
+            messages.append(msg)
     return messages
 
 def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
@@ -59,11 +68,15 @@ def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
         return 'ERROR: unable to process date: %s'
     date = dtime.strftime('%d/%m/%Y')
     db = read_database()
-    messages = []
-    messages.extend(process_meal(breakfast, db, date))
-    messages.extend(process_meal(lunch, db, date))
-    messages.extend(process_meal(dinner, db, date))
-    messages.extend(process_meal(snacks, db, date))
+    initial = daily_points(date, db)
+    messages = ['%s had %s points' % (date, initial)]
+    messages.extend(process_meal(breakfast, db, date, 'breakfast'))
+    messages.extend(process_meal(lunch, db, date, 'lunch'))
+    messages.extend(process_meal(dinner, db, date, 'dinner'))
+    messages.extend(process_meal(snacks, db, date, 'snacks'))
+    final = daily_points(date, db)
+    diff = final - initial
+    messages.append('%s added %s points (now has %s)' % (date, diff, final))
     write_database(db)
     return '\n'.join(messages)
     
