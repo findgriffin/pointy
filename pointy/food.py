@@ -22,9 +22,9 @@ def process_meal(text, db, date, name):
 def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     
     try:
-        dtime = parser.parse(date, dayfirst=True)
+        date = utils.parse_date(date)
     except ValueError:
-        return 'ERROR: unable to process date: %s'
+        return 'Error: unable to parse date %s' % date
     date = dtime.strftime('%d/%m/%Y')
     db = utils.read_db()
     initial = utils.daily_points(date, db)
