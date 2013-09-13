@@ -1,15 +1,21 @@
 import os
 import json
 import datetime
+from dateutil import parser
 
 now = datetime.datetime.now()
 today = '%s/%s/%s' % (now.day, now.month, now.year)
+tables = ['days', 'foods', 'prehab']
 
 def read_db(location='pointy.json'):
     if not os.path.exists(location):
-        return {'days': {}, 'foods': {}}
+        db = {}
     with open(location, 'rb') as db:
-        return json.load(db)
+        db = json.load(db)
+    for table in tables:
+        if not table in db:
+            db[table] = {}
+    return db
 
 def write_db(data, location='pointy.json'):
     with open(location, 'wb') as db:
@@ -42,3 +48,9 @@ def daily_points(date, db):
         for val in db['days'][date]:
             total += val[1]
     return total
+
+def parse_date(date):
+    if not date:
+        raise ValueError('date is blank')
+    dtime = parser.parse(date, dayfirst=True)
+    return dtime.strftime('%d/%m/%Y')
