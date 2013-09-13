@@ -40,7 +40,7 @@ def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     return '\n'.join(messages)
     
 
-food = Form(enter_food, name="Food")#, output_type='markdown')
+food = Form(enter_food, name="Food")
 
 food += Text('Date', name='date', default=utils.today)
 food += Doc("""
