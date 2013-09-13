@@ -1,10 +1,9 @@
 from formcreator import Form, Text, TextArea
 import utils
 
-def enter_training(workout):
-    with open('enter.out', 'wb') as fp:
-        fp.write('workout:\n%s' % workout)
+def enter_training(date=None, workout=None):
+    return 'on %s workout:\n%s' % (date, workout)
 
 train = Form(enter_training, name="Train")
-train += Text('Date', default=utils.today)
-train += TextArea('Workout')
+train += Text('Date', default=utils.today, cmd_opt='date')
+train += TextArea('Workout', cmd_opt='workout')
