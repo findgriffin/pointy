@@ -26,7 +26,7 @@ def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     except ValueError:
         return 'ERROR: unable to process date: %s'
     date = dtime.strftime('%d/%m/%Y')
-    db = utils.read_database()
+    db = utils.read_db()
     initial = utils.daily_points(date, db)
     messages = ['%s had %s points' % (date, initial)]
     messages.extend(process_meal(breakfast, db, date, 'breakfast'))
@@ -36,7 +36,7 @@ def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     final = utils.daily_points(date, db)
     diff = final - initial
     messages.append('%s added %s points (now has %s)' % (date, diff, final))
-    utils.write_database(db)
+    utils.write_db(db)
     return '\n'.join(messages)
     
 

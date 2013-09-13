@@ -5,13 +5,13 @@ import datetime
 now = datetime.datetime.now()
 today = '%s/%s/%s' % (now.day, now.month, now.year)
 
-def read_database(location='pointy.json'):
+def read_db(location='pointy.json'):
     if not os.path.exists(location):
         return {'days': {}, 'foods': {}}
     with open(location, 'rb') as db:
         return json.load(db)
 
-def write_database(data, location='pointy.json'):
+def write_db(data, location='pointy.json'):
     with open(location, 'wb') as db:
         db.write(json.dumps(data, indent=4))
 
