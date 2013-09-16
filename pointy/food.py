@@ -2,7 +2,6 @@
         
 from formcreator import Form, Text, Doc
 import utils
-from dateutil import parser
 
 def process_meal(text, db, date, name):
     messages = ['%s: ' % name]
@@ -20,12 +19,10 @@ def process_meal(text, db, date, name):
     return messages
 
 def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
-    
     try:
         date = utils.parse_date(date)
     except ValueError:
         return 'Error: unable to parse date %s' % date
-    date = dtime.strftime('%d/%m/%Y')
     db = utils.read_db()
     initial = utils.daily_points(date, db)
     messages = ['%s had %s points' % (date, initial)]
