@@ -44,3 +44,13 @@ class TestUtils(unittest.TestCase):
                 ('baz', 7, 'baz updated with points value 7'))
         self.assertEqual(pi('baz', items), 
                 ('baz', 7, 'used previous points 7 for baz'))
+
+    def test_daily_points(self):
+        pts = utils.daily_points
+        db = {'days': {'13/08/2013': [
+            ('foo',2),
+            ('bar',-3),
+            ('baz',7),
+                ]}}
+        self.assertEqual(pts('13/08/2013', db), 6)
+        self.assertEqual(pts('14/08/2013', db), 0)

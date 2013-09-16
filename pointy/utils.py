@@ -43,6 +43,8 @@ def process_item(item, items):
         raise ValueError('could not determine points for %s' % item)
 
 def daily_points(date, db):
+    """ Accumulate the points for given date, return 0 even if date is
+    nonexistant."""
     total = 0
     if date in db['days']:
         for val in db['days'][date]:
