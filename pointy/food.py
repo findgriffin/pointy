@@ -37,14 +37,14 @@ def food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     return '\n'.join(messages)
     
 
-food = Form(food)
+food_form = Form(food)
 
-food += Text('Date', name='date', default=utils.today)
-food += Doc("""
+food_form += Text('Date', name='date', default=utils.today)
+food_form += Doc("""
 Enter food1 [points], food2 [points],... in the fields below. Points may be
 ommitted if the food has been seen before.
 """)
-food += Text('Breakfast', cmd_opt='breakfast')
-food += Text('Lunch', cmd_opt='lunch')
-food += Text('Dinner', cmd_opt='dinner')
-food += Text('Snacks', cmd_opt='snacks')
+food_form += Text('Breakfast', cmd_opt='breakfast')
+food_form += Text('Lunch', cmd_opt='lunch')
+food_form += Text('Dinner', cmd_opt='dinner')
+food_form += Text('Snacks', cmd_opt='snacks')

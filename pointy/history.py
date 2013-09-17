@@ -26,9 +26,9 @@ def history(begin=None, end=None):
 
 
     return '\n'.join(matches)
-history = Form(history, inline=True)#, output_type='html')
-history += Doc("""
+history_form = Form(history, inline=True)#, output_type='html')
+history_form += Doc("""
 Select a range of days to view.
 """)
-history += Text('', name='begin', cmd_opt='begin', default=utils.today)
-history += Text('', name='end', cmd_opt='end', default=utils.today)
+history_form += Text('', name='begin', cmd_opt='begin', default=utils.today)
+history_form += Text('', name='end', cmd_opt='end', default=utils.today)

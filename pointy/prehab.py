@@ -37,9 +37,9 @@ def prehab(date=None, home=None, work=None, travel=None, other=None):
         
 
 
-prehab = Form(prehab)
-prehab += Text('Date', default=utils.today, cmd_opt='date')
-prehab += TextArea('Home', cmd_opt='home')
-prehab += TextArea('Work', cmd_opt='work')
-prehab += TextArea('Travel', cmd_opt='travel')
-prehab += TextArea('Other', cmd_opt='other')
+prehab_form = Form(prehab)
+prehab_form += Text('Date', default=utils.today, cmd_opt='date')
+prehab_form += TextArea('Home', cmd_opt='home')
+prehab_form += TextArea('Work', cmd_opt='work')
+prehab_form += TextArea('Travel', cmd_opt='travel')
+prehab_form += TextArea('Other', cmd_opt='other')

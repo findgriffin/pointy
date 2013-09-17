@@ -21,7 +21,7 @@ def foods(**kwargs):
     utils.write_db(db)
     msg.append('changed %s of %s items' % (change_count, len(kwargs)))
     return '\n'.join(msg)
-foods = Form(foods)
+foods_form = Form(foods)
 
 for food, points in foods_db.items():
-    foods += Text('', default='%s %s' % (food, points), cmd_opt=food)
+    foods_form += Text('', default='%s %s' % (food, points), cmd_opt=food)
