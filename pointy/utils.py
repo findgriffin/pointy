@@ -51,8 +51,14 @@ def daily_points(date, db):
             total += val[1]
     return total
 
-def parse_date(date):
+def parse_date(date, dtime=False):
     if not date:
         raise ValueError('date is blank')
     dtime = parser.parse(date, dayfirst=True)
-    return dtime.strftime('%d/%m/%Y')
+    if dtime:
+        return dtime
+    else:
+        return dtime.strftime('%d/%m/%Y')
+
+def compose_date(date):
+    return date.strftime('%d/%m/%Y')
