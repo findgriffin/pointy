@@ -17,7 +17,7 @@ def process_loc(text, db, date, name):
             messages.append(msg)
     return messages
 
-def enter_prehab(date=None, home=None, work=None, travel=None, other=None):
+def prehab(date=None, home=None, work=None, travel=None, other=None):
     try:
         date = utils.parse_date(date)
     except ValueError:
@@ -37,7 +37,7 @@ def enter_prehab(date=None, home=None, work=None, travel=None, other=None):
         
 
 
-prehab = Form(enter_prehab, name="Prehab")
+prehab = Form(prehab)
 prehab += Text('Date', default=utils.today, cmd_opt='date')
 prehab += TextArea('Home', cmd_opt='home')
 prehab += TextArea('Work', cmd_opt='work')

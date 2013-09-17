@@ -18,7 +18,7 @@ def process_meal(text, db, date, name):
             messages.append(msg)
     return messages
 
-def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
+def food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     try:
         date = utils.parse_date(date)
     except ValueError:
@@ -37,7 +37,7 @@ def enter_food(date, breakfast=None, lunch=None, dinner=None, snacks=None):
     return '\n'.join(messages)
     
 
-food = Form(enter_food, name="Food")
+food = Form(food)
 
 food += Text('Date', name='date', default=utils.today)
 food += Doc("""

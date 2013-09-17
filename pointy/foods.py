@@ -3,7 +3,7 @@ from formcreator import Form, Text
 import utils
 db = utils.read_db()
 foods_db = db['foods']
-def change_foods(**kwargs):
+def foods(**kwargs):
     msg = []
     change_count = 0
     for key, val in kwargs.items():
@@ -21,7 +21,7 @@ def change_foods(**kwargs):
     utils.write_db(db)
     msg.append('changed %s of %s items' % (change_count, len(kwargs)))
     return '\n'.join(msg)
-foods = Form(change_foods, name='Foods')
+foods = Form(foods)
 
 for food, points in foods_db.items():
     foods += Text('', default='%s %s' % (food, points), cmd_opt=food)
